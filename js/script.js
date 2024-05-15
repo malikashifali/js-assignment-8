@@ -5,15 +5,15 @@ const showNotification = (msg, type) => {
         case "error":
             bgColor = "linear-gradient(to right, #93291e, #ed213a)"
             break;
-            case "success":
-                bgColor = "linear-gradient(to right, #1D976C, #93F9B9)"
-                break;
-                case "default":
-                    bgColor = "000"
-                }
-                
-                
-                Toastify({
+        case "success":
+            bgColor = "linear-gradient(to right, #1D976C, #93F9B9)"
+            break;
+        case "default":
+            bgColor = "000"
+    }
+
+
+    Toastify({
         text: msg,
         duration: 3000,
         destination: "https://github.com/apvarun/toastify-js",
@@ -27,22 +27,22 @@ const showNotification = (msg, type) => {
         },
         onClick: function () { } // Callback after click
     }).showToast();
-    
+
 }
 
 // clear output 
-const clearOutput = () =>  document.getElementById("output").innerHTML = " "
+const clearOutput = () => document.getElementById("output").innerHTML = " "
 
 // footer year
 let year = new Date().getFullYear()
 document.getElementById("year").innerHTML = year
 
 // get field value 
-const getFieldValue = id =>  document.getElementById(id).value
+const getFieldValue = id => document.getElementById(id).value
 
 
 // get random number 
-const getRandomId = () =>  Math.random().toString(36).slice(2)
+const getRandomId = () => Math.random().toString(36).slice(2)
 
 
 // email regex
@@ -108,12 +108,18 @@ const handleSubmit = () => {
     user.status = "active"
     user.role = "student"
 
-    users.push(user)
-    showNotification("user successfully added", "success")
+
+    let userCheck = users.find(currElem => currElem.email == email)
+
+    if(userCheck){
+        showNotification("user already exists", "error")
+        return
+    }else{
+        users.push(user)
+        showNotification("user successfully added", "success")
+    }
 
 }
-
-
 
 
 
@@ -136,7 +142,7 @@ const showTable = () => {
 
 // print users in console 
 const printUsers = () => {
-console.log(users)
+    console.log(users)
 }
 
 
